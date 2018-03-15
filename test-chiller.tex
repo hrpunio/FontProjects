@@ -2,18 +2,34 @@
 \documentclass[twoside,a4page]{article}
 \usepackage{polyglossia}
 \setdefaultlanguage{polish}
-\parindent=9pt
+\parindent=0pt
+
 \usepackage{fontspec}
-\setmainfont[Ligatures=TeX,Scale=1.20,Numbers=OldStyle,RawFeature=+onum]{ChillerPL} %% 
+%\setmainfont[Ligatures=TeX,Scale=1.20,Numbers=OldStyle,RawFeature=+onum]{ChillerPL} %% 
+\setmainfont[Ligatures=TeX,Scale=1.20]{ChillerPL} %% 
+\newcommand{\opis}[1]{{\fontsize{10pt}{12pt}\sffamily\selectfont  #1} }
+\newcommand{\Opis}[1]{\vskip12pt plus 24pt\opis{#1}\par}
+
 \begin{document}
-\subsubsection*{\tt 30/36pt}
+
+\Opis{ChillerPL}
+
 \fontsize{30pt}{36pt}\selectfont
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}\hline
+\opis{ą} & \opis{ć} & \opis{ę} & \opis{ł} & \opis{ó} & \opis{ń} & 
+  \opis{ó} & \opis{ź} & \opis{ż} & \opis{-} &  \opis{--} &  \opis{---} &  \opis{,,} \\ \hline
 ą & ć & ę & ł & ó & ń & ó & ź & ż & - &  -- &  --- &  ,, \\ \hline
 Ą & Ć & Ę & Ł & Ó & Ń & Ó & Ź & Ż & - &  -- &  --- &  '' \\ \hline
-0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 &  & & \\ \hline
 \end{tabular}
+
+\Opis{cyfry normalne vs nautyczne}
+
+0123456789
+\addfontfeatures{Numbers=OldStyle}
+0123456789
+
+\Opis{30/36pt}
 
 Małgorzata Skorupa – absolwentka Akademii Muzycznej w~Gdańsku w~klasie
 skrzypiec prof.~Henryka Keszkowskiego. Doskonaliła swoje umiejętności
@@ -27,8 +43,8 @@ w~Gdańsku. Jej uczniowie i~studenci byli wielokrotnie laureatami
 konkursów skrzypcowych w~Polsce i~za granicą. Pełni funkcję prorektora
 do spraw studenckich.
 
-\subsubsection*{\tt 18/24pt}
-\fontsize{24pt}{30pt}\selectfont
+\Opis{18/24pt}
+\fontsize{24pt}{28pt}\selectfont
 
 Anna Sawicka – absolwentka Akademii Muzycznej Gdańsku w~klasie
 wiolonczeli Romana Sucheckiego oraz Szkoły Muzyki Dawnej w~Genewie
@@ -50,8 +66,8 @@ druku zapomniane utwory wiolonczelowe. Jest animatorką życia
 muzycznego w~Sopocie – cykle Świętojerskie Spotkania Muzyczne
 oraz Muzyczne Wieczory u~św.~Andrzeja Boboli.
 
-\subsubsection*{\tt 12/18pt}
-\fontsize{12pt}{18pt}\selectfont
+\Opis{12/18pt}
+\fontsize{12pt}{17pt}\selectfont
 
 Elżbieta Rosińska – absolwentka Akademii Muzycznej im.~Stanisława
 Moniuszki w~Gdańsku w~klasie akordeonu Józefa
@@ -86,9 +102,9 @@ oraz dyrektorem artystycznym konkursu \emph{Jugend musiziert Hamburg
   Nord}. Obecnie jest uczestniczką studiów doktoranckich na AM
 w~Gdańsku. Tematem dysertacji jest literatura na klarnet basowy.
 
-\subsubsection*{\tt 10/14pt}
-
+\Opis{10/14pt}
 \fontsize{10pt}{14pt}\selectfont
+
 Robert Horna – ceniony i~uznany solista i~kameralista, zaliczany do
 czołówki polskich gitarzystów klasycznych. Jest absolwentem Akademii
 Muzycznej we Wrocławiu w klasie gitary prof.~Piotra Zaleskiego oraz
