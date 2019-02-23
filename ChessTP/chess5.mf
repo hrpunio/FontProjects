@@ -1,0 +1,13 @@
+% Chess Characters at 6 point
+% T.Przechlewski//Sopot//April'92
+ 
+mode_setup;
+ 
+font_size 6pt#;  % the size of this font
+ht#:=6pt#;       % height of characters
+pb#:=1/4pt#;     % horizontal thickness of pen
+diags:=6;
+
+input chess
+end.
+

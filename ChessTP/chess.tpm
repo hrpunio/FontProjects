@@ -1,0 +1,120 @@
+% Macros to typeset chess 
+% (C) T.Przechlewski March//1992.
+% Warning: UNDER CONSTRUCTION 
+%     content
+%     -------
+%    \diagram	  chessboard diagram
+%    \combi	  diagram with some extra description
+%    \list	  list with alphanumeric/pictorial symbols
+%    \menpic      use symbols in chess lists
+%    \menalph     use capital letters in chess lists 
+%
+%    \tenchess	  switch to 10pt chess
+%    \fivechess	  switch to 5pt chess
+%    \bigchess    switch to 20pt chess fonts...
+%
+%\prefixing
+\catcode`/=\active
+%    
+% %% Fonts
+%
+\font\cssfive=chess5
+\font\cssten=chess10
+\font\csstwelve=chess20
+
+\font\tenrm=plr10		   \font\tensc=plcsc10
+\font\tenbf=plbx10		   \font\fivesc=plr5
+\font\fiverm=plr5		   \font\fivebf=plbx5
+%
+% %% More fonts definitions
+%
+\def\tenchess{\let\chessfont=\cssten\let\sc=\tensc\let\bf=\tenbf%%
+ \let\rm=\tenrm\baselineskip12pt\rm\framwidth.8pt\boarddim96pt}
+\def\fivechess{\let\chessfont=\cssfive\let\sc=\fivesc\let\bf=\fivebf%
+ \let\rm=\fiverm\baselineskip6pt\rm\framwidth.4pt\boarddim48pt}
+\def\bigchess{\let\chessfont=\csstwelve\framwidth1.0pt\boarddim192pt}
+%
+%% Counts and dimens
+%
+\newdimen\framwidth	   \newdimen\boarddim
+			   
+\newcount\cx		   \newcount\rx
+\newcount\px		   \newcount\move	      \newcount\moveno
+
+%
+% % Chess macros(making diagrams)
+%
+% fantastic figures (arlequin)
+\def\arleqw{{\chessfont\char'006}}
+\def\Arleqw{{\chessfont\char'016}}
+\def\arleqb{{\chessfont\char'026}}
+\def\Arleqb{{\chessfont\char'036}}
+
+\def\shift#1{\ifodd\rx\ifodd\cx\px=0\else\px=16\fi
+ \else\ifodd\cx\px=16\else\px=0\fi\fi
+  \advance\cx by1\advance\px by#1\char\px
+ \ifnum\cx=9\cx=1\advance\rx by1\relax\par\fi
+  \ifnum\rx>8\if\cx<9\message{Error!}\fi\fi}
+\def\diagram#1.{\par\begingroup\cx=1\rx=1\px=1%%
+ \offinterlineskip\parindent=0pt\parskip=0pt
+  \def\K{\shift{13}}\def\H{\shift{12}}\def\W{\shift{11}}%
+  \def\G{\shift{10}}\def\S{\shift9}\def\P{\shift8}%
+  \def\k{\shift5}\def\h{\shift4}\def\w{\shift3}\def\g{\shift2}%
+  \def\s{\shift1}\def\p{\shift0}\def\e{\shift7}% %%
+  \medskip%
+ \vbox{\hrule height\framwidth\hbox{\vrule width\framwidth%% %
+ \vbox to\boarddim{\hsize=\boarddim\chessfont#1}\vrule width\framwidth}%
+ \hrule height\framwidth}\endgroup\medskip\par}
+\def\cdiagram#1.{\centerline{\vbox{\diagram #1.}}}
+%
+% % Chess macros(making game lists)
+%
+\def\m[#1]{\ifnum\moveno=#1\else%%
+ \errmessage{!Inconsistent move}\fi}
+\def\putmen#1#2{\ifodd\move\moveno=\move\divide\moveno by2%%
+ \advance\moveno by1\rm\the\moveno.\ \px=0\else\ \px=8\fi%%
+ \advance\move by1\ifnum#1>0{\global\advance\px by#1% %%
+ \setbox0\hbox{\chessfont\char\px}\lower.16\ht0\box0}\else{#2}\fi}
+\def\menpic{%
+ \def\w{\putmen33}\def\k{\putmen55}\def\g{\putmen22}\def\s{\putmen11}%
+ \def\h{\putmen44}\def\p{\putmen0{}}\def\x{\putmen0{0-0}}%
+ \def\xx{\putmen0{0-0-0}}}
+\def\menalph{%%
+ \def\w{\putmen0W}\def\k{\putmen0K}\def\g{\putmen0G}\def\s{\putmen0S}%
+ \def\h{\putmen0H}\def\p{\putmen0{}}\def\x{\putmen0{0-0}}%
+ \def\xx{\putmen0{0-0-0}}}
+%
+% % Example layout macros 
+% % %%%%%%%%%%%%%%%%%%%%% %%
+% macro to display game list
+%    #1      Opening name (eg. King's gambit)
+%    #2      Encyclopaedia opening code
+%    #3#4    Opponent's names
+%    #5      Outcome
+\def\list[#1,#2;#3,#4;#5]#6\par{\move=1\medskip%
+ \line{{\sc#3\hfil#4}}\centerline{\bf#1 $\bullet$ #2}%
+ \begingroup
+   \catcode`/=\active\def/##1{\if k##1\k\else\if h##1\h\else%
+   \if w##1\w\else\if g##1\g\else\if s##1\s\else\if p##1\p\else%
+   \if x##1\x\else\if y##1\xx\fi\fi\fi\fi\fi\fi\fi\fi}
+  #6
+ \endgroup#5\par}
+
+% macro to display chess problem
+%    #1#2    Opponent's names
+%    #3      Venue
+%    #4	     Initial move
+%    #5      Chessboard
+\def\combi[#1,#2,#3,#4]#5\par{\vbox{\hsize=\boarddim%%
+ \centerline{\bf #1 -- #2}%
+ \centerline{#3}\vskip-\smallskipamount% %
+ \centerline{\vbox{\diagram #5}}% %%
+ \vskip-\medskipamount\centerline{\bf #4}}}
+
+% %%%
+% %%%\catcode`/=12
+\tenchess
+% %%%
+\endinput
+%
+

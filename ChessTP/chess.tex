@@ -1,0 +1,183 @@
+% Demonstration file for chess.tpm definitions 
+% Tomasz Przechlewski (1992/05)
+\nopagenumbers
+\input chess.tpm
+\input mimulcol.tex
+\vsize=198mm
+\hsize=140mm
+\columnsep=18pt      % odleg/lo/s/c mi/edzy kolumnami
+\columnseprule=0.4pt % grubo/s/c krechy m-dzy kolumnami
+\multicolbaselineskip=0pt plus 0.1pt % korekta `baselineskipu'
+
+\line{\hfil\it Tomasz Przechlewski $\bullet$ Sopot $\bullet$ Maj 1992\quad}
+\smallskip
+
+\hrule\smallskip{\bf MINIATURY}\smallskip\hrule
+\beginmulticols 3
+\menpic
+
+\list[Gambit hetma\'nski,D37;Y. Seirawan, Li Zunian;1-0]
+/pd4 /sf6
+/pc4 /pe6
+/sc3 /pd5
+/sf3 /ge7
+/gf4 /x
+/pe3 /pc5
+/pdc5 /g:c5
+/pcd5 /s:d5
+/s:d5 /ped5
+/gd3 /gb4+
+/ke2 /sc6
+/hc2 /ph6
+/whd1 /gd6?
+/gh7+ /kh8
+\cdiagram
+\W\e\G\H\e\W\e\K
+\P\P\e\e\e\P\P\g
+\e\e\S\G\e\e\e\P
+\e\e\e\P\e\e\e\e
+\e\e\e\e\e\g\e\e
+\e\e\e\e\p\s\e\e
+\p\p\h\e\k\p\p\p
+\w\e\e\w\e\e\e\e.
+/w:d5! /sb4
+/w:d6 /ha5
+/hb1 /pf1
+/gg6 /ge6
+/kf1 /g:a2
+/kg1 /wac8
+/h4 /wc2
+/w:a2! /h:a2
+/h:a2 /s:a2
+/wd7!
+
+\menalph
+
+\list[Obrona Caro-Kann,B13;A. Miles,A. Jusupow;0-1]
+/pc4 /pc6
+/pe4 /pd5
+/ped5 /pcd5
+/pd4 /sf6
+/sc3 /sc6
+/gg5 /ge6!?
+/g:f6 /pgf6!?
+/hd2 /ha5
+/c5 /y
+/gb5 /wg8!
+/pf4 /gh6
+/hf2 /sb4
+/wd1 /gf5
+/a3 /sc2+
+/kd2 /ge4
+\cdiagram
+\e\e\K\W\e\e\W\e
+\P\P\e\e\P\P\e\P
+\e\e\e\e\e\P\e\G
+\H\g\p\P\e\G\e\e
+\e\e\e\p\e\p\e\e
+\p\e\s\e\e\e\e\e
+\e\p\S\k\e\h\p\p
+\e\e\e\w\e\e\s\w.
+/sge2 /w:g2
+/hh4 /s:d4
+/hh3+ /pf5
+/gd3 /s:e2!
+/g:e2 /g:f4+
+/ke1 /pd4
+/gf3 /pdc3
+/w:d8+ /k:d8
+/h:g2 /pcb2+
+
+\list[O.\ Nimzowitscha,E21;G.Kasparow,A.Karpow;1-0]
+/pd4 /sf6
+/pc4 /pe6
+/kc3 /gb4
+/sf3 /x
+/gg5 /pc5
+/pe3 /pcd
+/ped /ph6
+/gh4 /pd5
+/wc1 /pdc
+/g:c4/sc6
+/x   /ge7 % 11move
+/we1 /pb6
+/pa3 /gb7
+/gg3 /wc8
+/ga2 /gd6
+\cdiagram
+\e\e\W\H\e\W\K\e
+\P\G\e\e\e\P\P\e
+\e\P\S\G\P\S\e\P
+\e\e\e\e\e\e\e\e
+\e\e\e\p\e\e\e\e
+\p\e\s\e\e\s\g\e
+\g\p\e\e\e\p\p\p
+\e\e\w\h\w\e\k\e.
+/pd5!? /s:d5
+/s:d5 /g:g3
+/phg  /ped
+/g:d5 /hf6
+/ha4  /wfd8
+/wcd1 /wd7
+/hg4 ...
+\cdiagram
+\e\e\W\e\e\e\K\e
+\P\G\e\W\e\P\P\e
+\e\P\S\e\e\H\e\P
+\e\e\e\g\e\e\e\e
+\e\e\e\e\e\e\h\e
+\p\e\e\e\e\s\p\e
+\e\p\e\e\e\p\p\e
+\e\e\e\w\w\e\k\e.
+22... /wcd8??
+/h:d7! /w:d7
+/we8+ /kh7
+/ge4+
+
+\endmulticols
+\hrule\smallskip{\bf KOMBINACJE}\smallskip\hrule
+\medskip
+
+\line{%
+\combi[Greenfeld,Cebalo,Biel 1986,Pos.\ czarnych]
+\e\e\e\e\W\e\e\e
+\e\e\e\e\e\P\K\P
+\H\e\e\P\e\e\P\e
+\e\W\P\p\P\G\e\e
+\P\e\s\S\e\e\e\e
+\p\e\e\e\h\p\p\e
+\e\p\e\e\p\e\g\e
+\e\e\w\e\e\w\k\e.
+
+\hfil
+\combi[Torre,Anand,Dubai 1986,Pos.\ czarnych]
+\W\e\e\e\W\e\K\e
+\e\G\P\e\e\e\P\e
+\e\P\e\P\S\e\e\e
+\P\e\e\e\e\e\s\e
+\e\e\p\e\e\w\e\e
+\e\e\e\g\p\e\p\e
+\p\e\e\e\p\e\e\p
+\e\e\e\e\e\w\k\e.
+
+\hfil
+\combi[Byrne,Tarajan,Cleveland 1975,Pos.\ bia{\l}ych]
+\e\H\e\e\e\e\K\e
+\e\e\e\e\P\w\e\e
+\P\e\e\e\W\e\P\e
+\e\e\e\e\e\e\p\e
+\e\e\e\e\e\e\e\e
+\p\e\p\e\e\h\e\e
+\k\p\e\e\e\e\e\e
+\e\e\e\e\e\e\e\e.
+\par}
+
+\medskip\hrule\smallskip
+
+\line{%
+\chessfont
+\char'000\char'001\char'002\char'003\char'004\char'005\char'006\char'007
+\hfil
+\char'010\char'011\char'012\char'013\char'014\char'015\char'016\char'017}
+
+\bye

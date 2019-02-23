@@ -1,0 +1,280 @@
+% Main file for generating chess characters..
+% T.Przechlewski//Sopot//April'92
+
+define_pixels(ht);
+define_blacker_pixels(pb);
+ 
+pickup pencircle scaled pb;thick_pen:=savepen; % Pen for drawing pieces
+pickup pencircle scaled .3pb;thin_pen:=savepen; % Pen for black square
+pickup pencircle xscaled 1.5pb yscaled 2.5pb;white_pen:=savepen;%
+ 
+u:=1/68ht; % %%% unit of measure
+bas_h:=10u;
+def bchar(expr code) = beginchar(oct decimal code, ht#,ht#,0);
+ pickup thick_pen;z0=(.5ht,bas_h); enddef;
+def echar =	penlabels(range 0 thru 44);endchar; enddef;
+%
+% Empty Squares
+%
+def black_diags(expr num_diags)=
+ pickup thin_pen;bot lft z1=(0,0);top rt z2=(w,h);draw z1--z2; % main
+ for i=1 upto num_diags-1: numeric x[],y[]; lft x1=0;top y2=h;bot y3=0;
+  rt x4=w;bot y1=h/num_diags*i;lft x2=w-h/num_diags*i;rt x3=x2;top y4=y1;
+  draw z1--z2;draw z3--z4; endfor
+ picture b_field;b_field=currentpicture; % for subsequent use
+enddef;
+ 
+ bchar(7);echar;
+ bchar(27);black_diags(diags);echar;
+%
+% Pieces
+%
+ 
+def polish_royal_bas(expr bbw,btw,bty,bbp,king)(text op)=
+ path basp;z5=(x0,y0+bbp);
+ y1=y2=y0;y3=y4=bty+y1;x1=x0-.5bbw;x1+bbw=x2;x3=x4+btw;x4=x0-.5btw;
+ if king: basp=z1{up}..z4{z5-z4}..z5..{z3-z5}z3..{down}z2--cycle;
+ else:path bot_line;z5l=z4+(2pb,0);z5r=z3-(2pb,0);
+  bot_line=z5l{right}..z5..{right}z5r;
+  basp=z1{up}..z4{right}..z5..{right}z3..{down}z2--cycle; fi
+ op basp;
+enddef;
+ 
+bchar(5); % white king on white
+bbw:=39u;tbw:=35u;bbp:=10u;tby:=7u;c:=48.5u;e:=53u;f:=43.5u;g:=9.5;
+polish_royal_bas(bbw,tbw,tby,bbp,true)(draw);
+y6=y4+12u;y7=y9=y6+10u;y8=y7+11.6u;x6=.5w-.5c;x7=x0-.5e;x8=x0-.5f;x9=x0-.5g;
+x10=x0;y10=y9-5u;x20=x0;y20=y8;pd:=9u;z20l=(x20-pd,y20);z20r=(x20+pd,y20);
+path bowl;bowl=z4{dir120}..z6..z7..z8..z20l..{down}z10---z5;
+draw bowl;draw bowl reflectedabout(z0,z5);
+draw halfcircle scaled 2pd shifted z20;
+picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(15); % black king	on white		%%%%
+polish_royal_bas(bbw,tbw,tby,bbp,true)(filldraw);
+y6=y4+12u;y7=y9=y6+10u;y8=y7+11.6u;x6=.5w-.5c;x7=x0-.5e;x8=x0-.5f;x9=x0-.5g;
+x10=x0;y10=y9-5u;x20=x0;y20=y8;pd:=9u;z20l=(x20-pd,y20);z20r=(x20+pd,y20);
+z9l=(1/6[x9,x7],y9);z7r=(5/6[x9,x7],y9);z8r=(.6[x7,x9],y7);
+z5l=z5-(2pb,0);z4r=z4+(2.5pb,0);
+path bowl,w_bowl,hat;bowl=z4{dir120}..z6..z7..z8..z20l..z10--z5
+--z5l{up}..z8r..{dir300}z4r--cycle;
+hat=z20l..z10..z20r&halfcircle scaled 2pd shifted z20..cycle;
+w_bowl=z4{dir120}..z6..z7..z8..z20l..z9..z10--z5--cycle;
+filldraw bowl;filldraw bowl reflectedabout(z0,z5);
+pickup pencircle scaled 3pb;
+draw halfcircle scaled 1.75pd shifted (z20-(0,pb));
+picture b_piece;b_piece=currentpicture;pair dc;dc:=z20;echar;
+ 
+bchar(35); % black king on black %%%
+currentpicture:=b_field;erase filldraw w_bowl;
+erase filldraw w_bowl reflectedabout(z0,dc);erase filldraw hat;
+currentpicture:=currentpicture+b_piece;echar;
+ 
+bchar(25); % white king on black
+currentpicture:=b_field;
+polish_royal_bas(bbw,tbw,tby,bbp,true)(erase filldraw);
+y6=y4+12u;y7=y9=y6+10u;y8=y7+11.6u;x6=.5w-.5c;x7=x0-.5e;x8=x0-.5f;x9=x0-.5g;
+x10=x0;y10=y9-5u;x20=x0;y20=y8;pd:=9u;z20l=(x20-pd,y20);z20r=(x20+pd,y20);
+path bowl;bowl=z4{dir120}..z6..z7..z8..z20l..z9..z10--z5--cycle;
+erase filldraw bowl;erase filldraw bowl reflectedabout(z0,z5);
+erase filldraw hat;currentpicture:=currentpicture+w_piece;echar;
+ 
+bchar(1); % white knight on white
+bw:=35u;ty:=59u;x1=x0-.5bw;x18=x0+.5bw;y1=y18=y0;x13=16/35[x1,x18];
+y13=ty;x10=x1-5u;x16=x18-1.5u;y16=y10=26/49[y1,y13];
+x9=x10+1u;x5=18/35[x1,x18];y9=y5=y10-6u;y8=y9-1u;y7=y9+1.6u;
+x8=x9+3u;x7=x9+9u;x2=x1+.5u;y2=y1+6u;x14=x13+1u;y14=y13-3u;
+x11=x13-6.5u;y11=y13-10u;x12=x13-2u;y12=y13-4.5u;x15=x13+13u;y15=y10+11u;
+x24=x13-3.5u;y24=y10+7.5u;z25=z24+(-2u,.6u);z26=z24+(2.1u,-2u);
+z19=(x18-4u,y2);z21=(x16-5u,y16);z22=(x15-5u,y15); path piece,back_line,eye;
+piece=z1..z2..{z5-z2}z5{z8-z5}..z7..z8..z9..z10{z11-z10}..z11..
+	z12{z13-z12}..z13{dir-30}..z16..tension1.5..z18--cycle;
+back_line=z19..z21..z22;eye=z25..z26..cycle;
+draw piece;draw eye;draw back_line;
+picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(11); % black knight on white
+filldraw piece;erase filldraw eye;pickup white_pen;erase draw back_line;echar;
+ 
+bchar(21); % white knight on black
+currentpicture:=b_field;
+erase filldraw piece;currentpicture:=currentpicture+w_piece;echar;
+ 
+bchar(31); % black knight on black
+filldraw piece;currentpicture:=currentpicture+b_field;erase filldraw eye;
+pickup white_pen;erase draw back_line;echar;
+ 
+bchar(0); % white pawn on white
+bw:=27u;tw:=25u;by:=10u;ty:=9.2u;neck_h:=20.4u;top_neck_w:=8u;
+top_head_w:=17u;mid_head_w:=10u;mid_head_h:=5u;head_d:=5.5u;
+y1=y4=by;y2=y3=y1+ty;x2=x1=x0-.5bw;x3=x4=x0+.5bw;
+y5=y6=y2+5u;x5=x1+1u;x6=x4-1u;y9=y14=y7=y8=y1+30u;x7=x0-.5top_neck_w;
+x8=x0+.5top_neck_w;x9=x0-.5top_head_w;x14=x0+.5top_head_w;
+x10=.59[x9,x7];x13=.59[x14,x8];y10=y13=y7+5u;
+y11=y12=y20=y10+head_d;x20=x0; % head centre
+x11=x20-head_d;x12=x20+head_d;
+path stem,head; stem=z1{dir60}..z2{up}..z5{dir60}..{up}z7--z8{down}..
+	{dir300}z6..{down}z3..{dir300}z4--cycle;head=z14{up}..z13{up}..z12&
+	halfcircle scaled 2head_d shifted z20&z11..{down}z10..{down}z9--cycle;
+draw stem;draw head;picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(10); % black pawn	on white
+filldraw stem;filldraw head;picture b_piece;b_piece=currentpicture;echar;
+ 
+bchar(20); % white pawn on black
+currentpicture:=b_field;erase filldraw stem;erase filldraw head;
+currentpicture:=currentpicture+w_piece;echar;
+ 
+bchar(30); % black pawn on black
+currentpicture:=b_piece+b_field;echar;
+ 
+def polish_bishop_bas(expr bbw,btw,bty,dby)(text op)=
+y1=y2=y0;y4=y3=y1+bty;x1=x0-.5bbw;x0-x1=x2-x0;x4=x0-.5btw;x0-x4=x3-x0;
+y5=y6=dby+y3;x5=x3;x6=x4;
+op z4{dir150}..z6--z5..{dir-150}z3--cycle;
+op z1{up}..z4--z3..{down}z2--cycle;
+enddef;
+ 
+bchar(2); % white bishop at white
+bbw:=35u;btw:=25u;bty:=8u;dby:=7u;
+polish_bishop_bas(bbw,btw,bty,dby)(draw);
+x7=x1;x16=x2;x13=x0;y7=y13=y16=y1+27u;h_diam:=.5bbw;mid_head_w:=20u;
+x17=x0-.5mid_head_w;mid_head_y:=y13+(h_diam+-+.5mid_head_w);
+x15=x0+.5mid_head_w;y15=y17=mid_head_y;top_top_w:=5.5u;
+x8=.5w-.5top_top_w;x11=.5w+.5top_top_w;y8=y11=y13+(h_diam+-+.5top_top_w);
+z14=z13+(4u,1.5u);z12=z14+(z11-z15);peak_d:=3.8u;
+y31=y32=y30=y8+(peak_d+-+.5top_top_w);x30=.5w;
+x31=x30-peak_d;x32=x30+peak_d;path piece,bot_line;
+piece=z5..z16..z15--z14..z13..z12--z11..z32&
+	halfcircle scaled 2peak_d shifted z30&z31---z8{left}..z17..z7..z6--cycle;
+z40=(x4+pb,.5[y6,y4]);z41=(x3-pb,y40);bot_line=z40--z41;
+pair p_c_head;p_c_head:=z30;draw piece;
+draw halfcircle scaled 2peak_d shifted z30; % upper peak half
+picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(12); % black bishop on white
+polish_bishop_bas(bbw,btw,bty,dby)(filldraw);filldraw piece;
+filldraw fullcircle scaled 2peak_d shifted p_c_head;
+picture b_piece;b_piece=currentpicture;
+pickup white_pen; erase draw bot_line;echar;
+ 
+bchar(22); % white bishop on black
+currentpicture:=b_field;
+polish_bishop_bas(bbw,btw,bty,dby)(erase filldraw);erase filldraw piece;
+draw z4{dir150}..z6--z5..{dir-150}z3--cycle;
+draw z1{up}..z4--z3..{down}z2--cycle;draw piece;
+currentpicture:=currentpicture+w_piece;echar;
+ 
+bchar(32); % black bishop on black
+currentpicture:=b_piece+b_field;pickup white_pen; erase draw bot_line;echar;
+ 
+def german_rook_bas(expr bbw,btw,bty,topcurl,sidecurl)(text op)=
+ y1=y2=y0;y3=y4=bty+y1;x1=.5ht-.5bbw;x1+bbw=x2;x3=x4+btw;x4=.5ht-.5btw;
+ numeric tt,ts; if topcurl: tt=5 else: tt=infinity fi;
+ if sidecurl: ts=2 else: ts=infinity;fi;
+ op z1..tension ts..z4..tension tt..z3..tension ts..z2--cycle;
+enddef;
+ 
+def polish_rook_bas(expr bbw,btw,bty,rx,ry,topcurl)(text op)=
+ y1=y2=y0;y3=y4=bty+y1;x1=.5ht-.5bbw;x1+bbw=x2;x3=x4+btw;x4=.5ht-.5btw;
+ y5=y6=ry[y1,y4];x5=rx[x1,x4];x6=rx[x2,x3];numeric tt;
+ if topcurl: tt=5 else: tt=infinity fi;
+ op z1--z5{up}..z4..tension tt..z3..{down}z6--z2--cycle;
+enddef;
+ 
+def polish_rook_batts(expr cby,cty,cgd,cbw,ctw,rx,ry)(text op)=
+ numeric gw;gw=ctw/5;x21=x0-.5cbw;x22=x0+.5cbw;x32=x0-.5ctw;x23=x0+.5ctw;
+ x24=x25=x23-gw;x27=x26=x24-gw;x28=x29=x27-gw;x31=x30=x28-gw;
+ y21=y22=y0+cby;y23=y24=y27=y28=y31=y32=y0+cty;y25=y26=y29=y30=y23-cgd;
+ y33=y34=ry[y21,y23];x33=rx[x21,x32];x34-x0=x0-x33;
+ op z21--z22--z34--z23--z24--z25--z26--z27--z28--z29--z30--
+	z31--z32--z33--cycle;
+enddef;
+ 
+def german_rook_batts(expr cby,cty,cgd,cbw,ctw)(text op)=
+ numeric gw;gw=ctw/5;x21=x0-.5cbw;x22=x0+.5cbw;x32=x0-.5ctw;x23=x0+.5ctw;
+ x24=x25=x23-gw;x27=x26=x24-gw;x28=x29=x27-gw;x31=x30=x28-gw;
+ y21=y22=y0+cby;y23=y24=y27=y28=y31=y32=y0+cty;y25=y26=y29=y30=y23-cgd;
+ op z21--z22--z23--z24--z25--z26--z27--z28--z29--z30--z31--z32--cycle
+enddef;
+ 
+bchar(3); % white rook at white
+bbw:=35u;btw:=31u;cty:=49u;cby:=37.24u;cgd:=.35(cty-cby);ctw:=31u;cbw:=24u;
+polish_rook_bas(bbw,btw,.22cty,1/8,7/11,false)(draw);
+polish_rook_batts(cby,cty,cgd,cbw,ctw,1,3/11)(draw);
+draw z4--z21;draw z3--z22; % stem
+picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(13); % black rook on white
+polish_rook_bas(bbw,btw,.22cty,1/8,7/11,false)(filldraw);
+polish_rook_batts(cby,cty,cgd,cbw,ctw,1,3/11)(filldraw);
+filldraw z4--z21--z22--z3--cycle; % stem
+pickup white_pen;path blin,tlin;blin=(z4+(2pb,0))--(z3-(2pb,0));
+tlin=(z21+(2pb,0))--(z22-(2pb,0));erase draw blin;erase draw tlin;
+picture b_piece;b_piece=currentpicture;echar;
+ 
+bchar(23); % white rook on black
+currentpicture:=b_field;
+polish_rook_bas(bbw,btw,.22cty,1/8,7/11,false)(erase filldraw);
+polish_rook_batts(cby,cty,cgd,cbw,ctw,1,3/11)(erase filldraw);
+erase filldraw z4--z21--z22--z3--cycle;
+currentpicture:=currentpicture+w_piece;echar;
+ 
+bchar(33); % black rook on black
+currentpicture:=b_piece+b_field;pickup white_pen;
+erase draw blin;erase draw tlin;echar;
+ 
+def polish_queen_crown(expr rb,rm,rt,alpha,cyclic)(text op)=
+path crownp;s:=60-2/3alpha;
+for n=0,1,2: z[n+10]=(x0+rb,y0) rotatedaround(z0,(2n+1)/2*s+alpha); endfor
+for n=0,1,2,3: z[n+20]=(x0+rm,y0) rotatedaround(z0,n*s+alpha);
+ z[n+30]=(x0+rt,y0) rotatedaround(z0,n*s+alpha); endfor
+if cyclic: crownp=z3--z20--z10--z21--z11--z22--z12--z23--z4--cycle;
+else: crownp=z3--z20--z10--z21--z11--z22--z12--z23--z4; fi
+for n=0,1,2,3: op fullcircle scaled 2(rt-rm) shifted z[n+30]; endfor
+op crownp;
+enddef;
+ 
+bchar(4); % white queen at white
+bbw:=40u;tbw:=38u;bpy:=13u;tby:=7u;e:=22u;f:=35u;g:=40u;alpha:=52;
+polish_royal_bas(bbw,tbw,tby,bpy,false)(draw);
+polish_queen_crown(e,f,g,alpha,false)(draw);
+picture w_piece;w_piece=currentpicture;echar;
+ 
+bchar(14); % black queen on white
+polish_royal_bas(bbw,tbw,tby,bpy,false)(filldraw);
+polish_queen_crown(e,f,g,alpha,true)(filldraw);
+pickup white_pen;erase draw bot_line;
+picture b_piece;b_piece=currentpicture;echar;
+ 
+bchar(24); % white queen on black
+currentpicture:=b_field;
+polish_royal_bas(bbw,tbw,tby,bpy,false)(erase filldraw);
+polish_queen_crown(e,f,g,alpha,true)(erase filldraw);
+currentpicture:=currentpicture+w_piece;
+picture aa_piece;aa_piece=currentpicture;echar;
+ 
+bchar(34); % black queen on black
+currentpicture:=b_piece+b_field;pickup white_pen;erase draw bot_line;
+picture ae_piece;ae_piece=currentpicture;echar;
+ 
+% Very rarely some extra pieces called fantastic figures
+% are used particulary in chess problems and combinations
+%   most prominent of them is ARLEQUIN which commonly is
+%   set as queen put upside down (at least in Poland), so...
+
+bchar(6); % white arlequin at white
+pair zx,zy;zx=(0,.5h);zy=(w,.5h);
+currentpicture:=w_piece reflectedabout(zx,zy);echar;
+
+bchar(16); % black arlequin at white
+currentpicture:=b_piece reflectedabout(zx,zy);echar;
+
+bchar(26); % white arlequin at black
+currentpicture:=aa_piece reflectedabout(zx,zy);echar;
+
+bchar(36); % black arlequin at black
+currentpicture:=ae_piece reflectedabout(zx,zy);echar;
+
+bye 
+

@@ -1,0 +1,13 @@
+% Chess Characters at 12 point
+% T.Przechlewski//Sopot//April'92
+ 
+mode_setup;
+ 
+font_size 12pt#;  % the size of this font
+ht#:=12pt#;       % height of characters
+pb#:=1/3pt#;      % horizontal thickness of pen
+diags:=8;	  % number of diagonals on black square
+
+input chess
+end.
+

@@ -1,0 +1,13 @@
+% Chess Characters at 24 point
+% T.Przechlewski//Sopot//April'92
+ 
+mode_setup;
+ 
+font_size 24pt#;  % the size of this font
+ht#:=24pt#;       % height of characters
+pb#:=9/12pt#;     % horizontal thickness of pen
+diags:=9;
+
+input chess
+end.
+
